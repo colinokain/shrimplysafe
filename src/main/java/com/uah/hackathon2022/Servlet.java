@@ -49,6 +49,25 @@ public class Servlet extends HttpServlet{
         
         response.setCharacterEncoding("UTF-8");
         JSONObject responseJSON = new JSONObject();
+        
+        try
+        {
+            switch(path)
+            {
+                case "/test":
+                    System.out.println("Here");
+                    responseJSON.put("success", "balls");
+                    break;
+                default:
+                    responseJSON.put("error", "Could not find location");
+            }
+        }
+        catch(Exception e)
+        {
+            
+        }
+        sendData(response, responseJSON.toString(), "", 1, 1);
+        
     }
     
     private void sendData(HttpServletResponse response, String jsonResponse, String type, long startTime, int id)
