@@ -34,6 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import java.security.MessageDigest;
 import javax.xml.bind.DatatypeConverter;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  *
@@ -56,10 +58,19 @@ public class Servlet extends HttpServlet{
         {
             switch(path)
             {
-                case "/test":
+                case "/addUser":
+                    responseJSON = addUser(request);
+
+                    break;
+                case "/getValidPassword":
                     String username = request.getParameter("username");
                     responseJSON.put("hashValue", hashSha256(username.substring(0, username.length()/2) + hashSha256(request.getParameter("password")) + hashSha256(username.substring(username.length()/2 + 1, username.length()))));
                     responseJSON.put("success", "true");
+                    responseJSON.put("username", username);
+                    responseJSON.put("valid_user", "true");
+                    responseJSON.put("password_auth", "true");
+                    responseJSON.put("callback_data", (request.getParameter("callback_data") != null ? request.getParameter("callback_data") : new JSONArray()));
+                    
                     break;
                 default:
                     responseJSON.put("error", "Could not find location");
@@ -71,6 +82,20 @@ public class Servlet extends HttpServlet{
         }
         sendData(response, responseJSON.toString(), "", 1, 1);
         
+    }
+    
+    private JSONObject addUser(HttpServletRequest request) throws JSONException
+    {
+        JSONObject responseJSON = new JSONObject();
+        String username = request.getParameter("username");
+        responseJSON.put("hashValue", hashSha256(username.substring(0, username.length()/2) + hashSha256(request.getParameter("password")) + hashSha256(username.substring(username.length()/2 + 1, username.length()))));
+        responseJSON.put("success", "true");
+        responseJSON.put("username", username);
+        responseJSON.put("valid_user", "true");
+        responseJSON.put("password_auth", "true");
+        responseJSON.put("callback_data", (request.getParameter("callback_data") != null ? request.getParameter("callback_data") : new JSONArray()));
+        
+        return responseJSON;
     }
     
     private JSONObject hashSha256(String code)
@@ -93,7 +118,7 @@ public class Servlet extends HttpServlet{
         
         try (PrintWriter writer = response.getWriter())
         {
-            writer.write((jsonResponse));
+            writer.write(jsonResponse);
             writer.flush();
         }
         catch(Exception ex)

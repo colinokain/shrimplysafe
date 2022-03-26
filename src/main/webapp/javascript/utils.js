@@ -25,7 +25,7 @@
 
 function doGet(url, data, callbackscript)
 {
-    $.get( "Servlet/"+url, data).done(function(data){
+    $.get( "Servlet/" + url, data).done(function(data){
         window[callbackscript](data);
     });
 }
