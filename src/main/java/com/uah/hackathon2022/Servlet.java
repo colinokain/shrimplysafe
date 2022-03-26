@@ -32,6 +32,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import java.security.MessageDigest;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -55,8 +57,9 @@ public class Servlet extends HttpServlet{
             switch(path)
             {
                 case "/test":
-                    System.out.println("Here");
-                    responseJSON.put("success", "balls");
+                    String username = request.getParameter("username");
+                    responseJSON.put("hashValue", hashSha256(username.substring(0, username.length()/2) + hashSha256(request.getParameter("password")) + hashSha256(username.substring(username.length()/2 + 1, username.length()))));
+                    responseJSON.put("success", "true");
                     break;
                 default:
                     responseJSON.put("error", "Could not find location");
@@ -64,10 +67,23 @@ public class Servlet extends HttpServlet{
         }
         catch(Exception e)
         {
-            
+            System.err.println(e);
         }
         sendData(response, responseJSON.toString(), "", 1, 1);
         
+    }
+    
+    private JSONObject hashSha256(String code)
+    {
+        JSONObject returnVal = new JSONObject();
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(code.getBytes("UTF-8"));
+            returnVal.put("result", DatatypeConverter.printHexBinary(hash));
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return returnVal;
     }
     
     private void sendData(HttpServletResponse response, String jsonResponse, String type, long startTime, int id)
@@ -84,6 +100,42 @@ public class Servlet extends HttpServlet{
         {
             System.err.println(ex);
         }
+    }
+    
+    private static String generatePassword(int length, boolean useNumbers, boolean useSpecialCharacters) {
+        
+        String[] capitalCaseLetters = {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"};
+        String[] lowerCaseLetters = {"q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"};
+        String[] specialCharacters = {"$","#","!","@","%","^","&","*"};
+        String[] numbers = {"1","2","3","4","5","6","7","8","9","0"};
+        
+        String password = "";
+        
+        for(int i = 0; i < length; i++) {
+            int num =  (int)(Math.random()*(4-1+1)+1);
+            
+            switch(num)
+            {
+                case 1:
+                    password = password + capitalCaseLetters[(int)(Math.random()*(26) + 0.5)];  
+                    break;
+                case 2:
+                    password = password + lowerCaseLetters[(int)(Math.random()*(26) + 0.5)];  
+                    break;
+                case 3:
+                    if(useSpecialCharacters) 
+                        password = password + specialCharacters[(int)(Math.random()*(7) + 0.5)];
+                    break;
+                case 4:
+                    if(useNumbers)
+                        password = password + numbers[(int)(Math.random()*(9) + 0.5)];
+                    break;
+                default:
+                    i -= 1;
+            }
+        }
+        
+        return password;
     }
     
 }
