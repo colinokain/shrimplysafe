@@ -2,6 +2,7 @@
 - ShrimplySafe is a tool that can be used to hold third-party encrypted, sensitive information as well as encrypted file transfers.
   - Every business needs a website. Not every business has the resources to invest in a large server for individual data storage. ShrimplySafe offers a solution to this by allowing third party businesses to register and save any information, only accessable by those who own the data, with one secure API call.
   - Businesses do not like hosting sensitive customer data. Hosting sensitive information can be a liability for certain businesses that are unable to invest in necessary security. ShrimplySafe seeks to alleviate this pressure by hosting the sensitive data for the third-party company.
+  - ShrimplySafe was designed to be a secure solution for account management on behalf of a first party. In order to ensure the security of our customers, the applicant must udnergo an application process. This process consists of basic information, as well as proof that is authentic of the applicant. Upon acceptance your company will be assigned an API key in order to access the ShrimplySafe software. Once this key has been assigned, you are now free to start storing safely, ShrimplySafe!
 ## Technical Details
 - ShrimplySafe is running on an Apache Tomcat server with a Java backend.
 - MySQL is hosting the database.
