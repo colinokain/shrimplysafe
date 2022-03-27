@@ -139,7 +139,7 @@ public class Servlet extends HttpServlet{
         String password = "";
         
         for(int i = 0; i < length; i++) {
-            int num =  (int)(Math.random()*(4-1+1)+1);
+            int num =  (int)(Math.random()*(4)+1);
             
             switch(num)
             {
