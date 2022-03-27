@@ -29,14 +29,10 @@
           <div class="code__block code__block--notabs">
             <pre class="code code--block">
               <code>
-                $ scribbler  ——config
-                  {
-                    “encryption”: true, 
-                    “highlighting“: true,
-                    “prettyTable”: false,
-                    “font”: [“Helvetica”, “sans-serif”],
-                    “folder”: “~/Desktop“
-                  }
+                    data = {username: "username", password: "password"}
+                    $.get( "https://fishsaucey.com/addUser/", data).done(function(data){
+                        window[callbackscript](data);
+                    });
               </code>
             </pre>
           </div>

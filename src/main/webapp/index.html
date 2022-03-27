@@ -38,15 +38,6 @@
         top:50px;
     }
 
-    .button {
-        margin: auto;
-        border: black;
-        color: #04AA6D;
-        padding: 18px 32px;
-        text-align: center;
-        font-size: 300px;
-        cursor: pointer;
-    }
 </style>
 <html>
     
@@ -72,9 +63,35 @@
         <div class="mainbody">
             <div class="title" style="text-align:center; font-size:30px;"><b>Welcome To ShrimplySafe!</b></div>
             <div class = "body" style="text-align:center; font-size:20px;">We are a third-party solution for all of your safe storage needs. Our system is designed to store your data securely. We have developed our own API, that allows you to encrypt, validate and store information, all from the ease of a call. <br></br> Don't hesitate, apply today! </div>
-            <div class="button">
-                <button style ="height:200px;width:200px;"><a href="apply.html">Apply Now!</a></button>
+            <div style="margin:auto; padding:10px; padding-left:24%; position:absolute;">
+                <button style ="height:50px;width:200px;"><a href="apply.html">Apply Now!</a></button>
             </div>
-        </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <hr style="height:1px; background-color:black;">
+            <div style="font-size:30px; text-align:center"><b>Example</b></div>
+            <hr style="height:1px; background-color:black;">
+            <br>
+            <div style="display:block; padding-top:50px; padding:10px; padding-left:380px; position:absolute;">
+                <span>username</span>&nbsp;
+                <input type="text" id="username" style="height:25px; width:250px;"/>
+            </div>
+            <br>
+            <br>
+            <div style="display:block; padding:10px; padding-left:380px; position:absolute;">
+                <span>password</span>&nbsp;
+                <input type="text" id="password" style="height:25px; width:250px;"/>
+            </div>
+            <br>
+            <br>
+            <div style="margin:auto; padding:10px; padding-left:24%; position:absolute;">
+                <button style ="height:50px;width:200px;"><a onclick="createUser()">Submit</a></button>
+            </div>
+            <!--<div style="margin:auto; padding:10px; padding-left:13%; padding-top:50px; position:absolute;">
+                <iframe width="616" height="347" src="https://www.youtube.com/embed/X1CCQ_zxUI8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>!-->
+            </div>
     </body>
 </html>

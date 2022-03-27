@@ -23,11 +23,18 @@
  */
 
 
-$(document).ready(function() {
-    doGet("updatePassword", {username:"username", password:"oaudshfu", newPassword:"minecraft"}, 'minecraft');
-});
 
-function minecraft(data)
+
+function createUser()
+{
+    console.log('here');
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    doGet("addUser", {username:username, password:password}, 'returnLocation');
+}
+
+function returnLocation(data)
 {
     console.log(data);
+    window.location.reload();
 }
