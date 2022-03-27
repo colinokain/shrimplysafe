@@ -78,11 +78,6 @@ public class ContextListener
 
     public void contextInitialized(ServletContextEvent event) {
         this.context = event.getServletContext();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         Iterator<Driver> driversIterator = ServiceLoader.load(Driver.class).iterator();
         while (driversIterator.hasNext()) {
@@ -93,7 +88,7 @@ public class ContextListener
                 event.getServletContext().log("JDBC Driver registration failure.", t);
             }
 
-            System.out.println("The Simple Web App. Is Ready");
+            System.out.println("ShrimplySafe initialized.");
 
         }
 
