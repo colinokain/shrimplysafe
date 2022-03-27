@@ -59,20 +59,23 @@ public class ContextListener
 
     public void contextDestroyed(ServletContextEvent event) {
 
-        final ClassLoader cl = event.getServletContext().getClassLoader();
-        final Enumeration<Driver> drivers = DriverManager.getDrivers();
+        try {
+            com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.uncheckedShutdown();
+        } catch (Throwable t) {
+        }
+        // This manually deregisters JDBC driver, which prevents Tomcat 7 from complaining about memory leaks
+        Enumeration<java.sql.Driver> drivers = java.sql.DriverManager.getDrivers();
         while (drivers.hasMoreElements()) {
-            final Driver driver = drivers.nextElement();
-            // We deregister only the classes loaded by this application's classloader
-            if (driver.getClass().getClassLoader() == cl) {
-                try {
-                    DriverManager.deregisterDriver(driver);
-                } catch (SQLException e) {
-                    event.getServletContext().log("JDBC Driver deregistration failure.", e);
-                }
+            java.sql.Driver driver = drivers.nextElement();
+            try {
+                java.sql.DriverManager.deregisterDriver(driver);
+            } catch (Throwable t) {
             }
         }
-        this.context = null;
+        try {
+            Thread.sleep(2000L);
+        } catch (Exception e) {
+        }
 
     }
 

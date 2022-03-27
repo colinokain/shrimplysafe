@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import java.security.MessageDigest;
+import java.sql.SQLException;
 import javax.xml.bind.DatatypeConverter;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,9 +61,7 @@ public class Servlet extends HttpServlet{
             switch(path)
             {
                 case "/addUser":
-                    DatabaseConnection item = new DatabaseConnection();
                     responseJSON = addUser(request);
-
                     break;
                 case "/getValidPassword":
                     String username = request.getParameter("username");
@@ -86,10 +85,11 @@ public class Servlet extends HttpServlet{
         
     }
     
-    private JSONObject addUser(HttpServletRequest request) throws JSONException
+    private JSONObject addUser(HttpServletRequest request) throws JSONException, SQLException
     {
         JSONObject responseJSON = new JSONObject();
         String username = request.getParameter("username");
+        DatabaseConnection.getInstance().addUser(username, request.getParameter("password"));
         responseJSON.put("hashValue", hashSha256(username.substring(0, username.length()/2) + hashSha256(request.getParameter("password")) + hashSha256(username.substring(username.length()/2 + 1, username.length()))));
         responseJSON.put("success", "true");
         responseJSON.put("username", username);
