@@ -24,7 +24,7 @@
 
 
 $(document).ready(function() {
-    doGet("addUser", {username:"username", password:"password"}, 'minecraft');
+    doGet("updatePassword", {username:"username", password:"oaudshfu", newPassword:"minecraft"}, 'minecraft');
 });
 
 function minecraft(data)
