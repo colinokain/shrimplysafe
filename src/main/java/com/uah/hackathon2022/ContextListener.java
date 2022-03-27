@@ -63,7 +63,7 @@ public class ContextListener
             com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.uncheckedShutdown();
         } catch (Throwable t) {
         }
-        // This manually deregisters JDBC driver, which prevents Tomcat 7 from complaining about memory leaks
+        // This manually deregisters JDBC driver, which prevents Tomcat from complaining about memory leaks
         Enumeration<java.sql.Driver> drivers = java.sql.DriverManager.getDrivers();
         while (drivers.hasMoreElements()) {
             java.sql.Driver driver = drivers.nextElement();

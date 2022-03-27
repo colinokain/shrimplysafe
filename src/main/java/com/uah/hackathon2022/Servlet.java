@@ -35,13 +35,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
  *
- * @author Colin O'Kain
+ * @author Colin O'Kain, Joshua Payne, Matthew Payne
  */
 @WebServlet
 public class Servlet extends HttpServlet{
@@ -78,9 +81,14 @@ public class Servlet extends HttpServlet{
         }
         catch(Exception e)
         {
+            try{
+                 responseJSON.put("error", e.toString());           
+            } catch (JSONException ex) {
+                Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.err.println(e);
         }
-        sendData(response, responseJSON.toString(), "", 1, 1);
+        sendData(response, responseJSON.toString(), "", (new Date()).getTime(), 1);
         
     }
     
