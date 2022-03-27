@@ -60,6 +60,9 @@ public class Servlet extends HttpServlet{
         {
             switch(path)
             {
+                case "/getRecommendedPassword":
+                    responseJSON = generatePassword(15, true, true);
+                    break;
                 case "/addUser":
                     responseJSON = addUser(request);
                     break;
@@ -129,7 +132,7 @@ public class Servlet extends HttpServlet{
         }
     }
     
-    private static String generatePassword(int length, boolean useNumbers, boolean useSpecialCharacters) {
+    private JSONObject generatePassword(int length, boolean useNumbers, boolean useSpecialCharacters) throws JSONException {
         
         String[] capitalCaseLetters = {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"};
         String[] lowerCaseLetters = {"q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"};
@@ -137,7 +140,7 @@ public class Servlet extends HttpServlet{
         String[] numbers = {"1","2","3","4","5","6","7","8","9","0"};
         
         String password = "";
-        
+        JSONObject returnVal = new JSONObject();
         for(int i = 0; i < length; i++) {
             int num =  (int)(Math.random()*(4)+1);
             
@@ -161,8 +164,9 @@ public class Servlet extends HttpServlet{
                     i -= 1;
             }
         }
-        
-        return password;
+        returnVal.put("success", "true");
+        returnVal.put("password", password);
+        return returnVal;
     }
     
 }
