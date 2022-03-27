@@ -24,7 +24,7 @@
 
 
 $(document).ready(function() {
-    doGet("test", {username:"username", password:"password"}, 'minecraft');
+    doGet("addUser", {username:"username", password:"password"}, 'minecraft');
 });
 
 function minecraft(data)

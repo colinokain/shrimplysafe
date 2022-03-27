@@ -24,6 +24,7 @@
 package com.uah.hackathon2022;
 
 
+import com.uah.hackathon2022.Database.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -59,6 +60,7 @@ public class Servlet extends HttpServlet{
             switch(path)
             {
                 case "/addUser":
+                    DatabaseConnection item = new DatabaseConnection();
                     responseJSON = addUser(request);
 
                     break;

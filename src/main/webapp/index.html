@@ -1,14 +1,61 @@
 <!DOCTYPE html>
+<style>
+    .navbar {
+        background-color: white;
+        overflow: hidden;
+        border-radius:15px;
+        border:0px solid white;
+    }
+    .navbar a {
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        background-color: grey;
+    }
 
+    .navbar a:hover {
+        background-color: green;
+        color: black;
+    }
+
+    .navbar a.active {
+        background-color: #04AA6D;
+        color: white;
+    }
+    .navbar a.right {
+        float:right
+    }
+    .mainbody {
+        margin: auto;
+        width: 60%;
+        border: 0px solid black;
+        border-radius: 25px;
+        min-height:750px;
+        background-color: darkgray;
+        padding-top: 50px;
+        top:50px;
+    }
+</style>
 <html>
     <script type="text/javascript" src="javascript/jquery.js"></script>
     <script type="text/javascript" src="javascript/utils.js"></script>
     <script type="text/javascript" src="javascript/index.js"></script>
     <head>
-        <title>Start Page</title>
+        <title>index</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
-        <h1 id="bob">Hello World!</h1>
+    <body style="background-image: url('img/background.png');">
+        <div class="navbar">
+            <a class="active" href="/hackathon2022/">Home</a>
+            <a href="/hackathon2022/">About</a>
+            <a class="right" href="/docs/">Documentation</a>
+        </div>
+        <br>
+        <div class="mainbody">
+            <div class="title" style="text-align:center; font-size:30px;">Hello There</div>
+        </div>
     </body>
 </html>
