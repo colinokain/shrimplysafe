@@ -3,7 +3,6 @@
     .navbar {
         background-color: white;
         overflow: hidden;
-        border-radius:15px;
         border:0px solid white;
     }
     .navbar a {
@@ -32,30 +31,50 @@
         margin: auto;
         width: 60%;
         border: 0px solid black;
-        border-radius: 25px;
-        min-height:750px;
-        background-color: darkgray;
+        min-height:1500px;
+        background-color: white;
         padding-top: 50px;
+        padding: 20px;
         top:50px;
+    }
+
+    .button {
+        margin: auto;
+        border: black;
+        color: #04AA6D;
+        padding: 18px 32px;
+        text-align: center;
+        font-size: 300px;
+        cursor: pointer;
     }
 </style>
 <html>
+    
     <script type="text/javascript" src="javascript/jquery.js"></script>
     <script type="text/javascript" src="javascript/utils.js"></script>
     <script type="text/javascript" src="javascript/index.js"></script>
     <head>
-        <title>index</title>
+        <title>ShrimplySafe</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet">
+        <link rel="stylesheet" href="scribbler-global.css">
+        <link rel="stylesheet" href="scribbler-doc.css"> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body style="background-image: url('img/background.png');">
-        <div class="navbar">
-            <a class="active" href="/hackathon2022/">Home</a>
-            <a href="/hackathon2022/">About</a>
-            <a class="right" href="/docs/">Documentation</a>
-        </div>
-        <br>
+        <nav class="header" style = "background-color: white;">
+            <h1 class="logo">ShrimplySafe <span class="logo__thin">Home</span></h1>
+            <ul class="menu">
+              <div class="menu__item toggle"><span></span></div>
+              <li class="menu__item"><a href="doc.html" class="link link--dark">Documentation</a></li>
+            </ul>
+          </nav>
         <div class="mainbody">
-            <div class="title" style="text-align:center; font-size:30px;">Hello There</div>
+            <div class="title" style="text-align:center; font-size:30px;"><b>Welcome To ShrimplySafe!</b></div>
+            <div class = "body" style="text-align:center; font-size:20px;">We are a third-party solution for all of your safe storage needs. Our system is designed to store your data securely. We have developed our own API, that allows you to encrypt, validate and store information, all from the ease of a call. <br></br> Don't hesitate, apply today! </div>
+            <div class="button">
+                <button style ="height:200px;width:200px;"><a href="apply.html">Apply Now!</a></button>
+            </div>
         </div>
     </body>
 </html>
