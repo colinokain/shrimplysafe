@@ -66,6 +66,12 @@ public class Servlet extends HttpServlet{
                 case "/addUser":
                     responseJSON = addUser(request);
                     break;
+                case "/getUser":
+                    responseJSON = getUser(request);
+                    break;
+                case "/updatePassword":
+                    responseJSON = updatePassword(request);
+                    break;
                 case "/getValidPassword":
                     String username = request.getParameter("username");
                     responseJSON.put("hashValue", hashSha256(username.substring(0, username.length()/2) + hashSha256(request.getParameter("password")) + hashSha256(username.substring(username.length()/2 + 1, username.length()))));
@@ -73,8 +79,7 @@ public class Servlet extends HttpServlet{
                     responseJSON.put("username", username);
                     responseJSON.put("valid_user", "true");
                     responseJSON.put("password_auth", "true");
-                    responseJSON.put("callback_data", (request.getParameter("callback_data") != null ? request.getParameter("callback_data") : new JSONArray()));
-                    
+                    responseJSON.put("callback_data", (request.getParameter("callback_data") != null ? request.getParameter("callback_data") : new JSONArray()));                    
                     break;
                 default:
                     responseJSON.put("error", "Could not find location");
@@ -92,7 +97,8 @@ public class Servlet extends HttpServlet{
     {
         JSONObject responseJSON = new JSONObject();
         String username = request.getParameter("username");
-        DatabaseConnection.getInstance().addUser(username, request.getParameter("password"));
+        DatabaseConnection.getInstance().addUser(username);
+        DatabaseConnection.getInstance().addPassword(hashSha256(username.substring(0, username.length()/2)).get("result").toString() + hashSha256(request.getParameter("password")).get("result").toString() + hashSha256(username.substring(username.length()/2 + 1, username.length())).get("result").toString());
         responseJSON.put("hashValue", hashSha256(username.substring(0, username.length()/2) + hashSha256(request.getParameter("password")) + hashSha256(username.substring(username.length()/2 + 1, username.length()))));
         responseJSON.put("success", "true");
         responseJSON.put("username", username);
@@ -101,6 +107,29 @@ public class Servlet extends HttpServlet{
         responseJSON.put("callback_data", (request.getParameter("callback_data") != null ? request.getParameter("callback_data") : new JSONArray()));
         
         return responseJSON;
+    }
+   
+    private JSONObject getUser(HttpServletRequest request) throws JSONException, SQLException
+    {
+        JSONObject responseJSON = new JSONObject();
+        String username = request.getParameter("username");
+        String password = hashSha256(username.substring(0, username.length()/2)).get("result").toString() + hashSha256(request.getParameter("password")).get("result").toString() + hashSha256(username.substring(username.length()/2 + 1, username.length())).get("result").toString();
+        
+        JSONObject queryResults = DatabaseConnection.getInstance().getUser(username, password);
+        
+        return queryResults;
+    }
+    
+    private JSONObject updatePassword(HttpServletRequest request) throws JSONException, SQLException
+    {
+        JSONObject responseJSON = new JSONObject();
+        String username = request.getParameter("username");
+        String oldPassword = hashSha256(username.substring(0, username.length()/2)).get("result").toString() + hashSha256(request.getParameter("password")).get("result").toString() + hashSha256(username.substring(username.length()/2 + 1, username.length())).get("result").toString();
+        String newPassword = hashSha256(username.substring(0, username.length()/2)).get("result").toString() + hashSha256(request.getParameter("newPassword")).get("result").toString() + hashSha256(username.substring(username.length()/2 + 1, username.length())).get("result").toString();
+        
+        JSONObject queryResults = DatabaseConnection.getInstance().updatePassword(username, oldPassword, newPassword);
+        
+        return queryResults;
     }
     
     private JSONObject hashSha256(String code)
